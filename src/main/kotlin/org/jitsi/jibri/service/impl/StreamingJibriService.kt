@@ -19,6 +19,7 @@ package org.jitsi.jibri.service.impl
 
 import org.jitsi.xmpp.extensions.jibri.JibriIq
 import org.jitsi.jibri.capture.ffmpeg.FfmpegCapturer
+import org.jitsi.jibri.config.JibriConfig
 import org.jitsi.jibri.config.XmppCredentials
 import org.jitsi.jibri.selenium.CallParams
 import org.jitsi.jibri.selenium.JibriSelenium
@@ -67,11 +68,12 @@ data class StreamingParams(
  * to a url
  */
 class StreamingJibriService(
-    private val streamingParams: StreamingParams
+    private val streamingParams: StreamingParams,
+    private val jibriConfig: JibriConfig,
+    private val capturer: FfmpegCapturer = FfmpegCapturer(ffmpegExecutorParams = jibriConfig.ffmpegExecutorParams),
+    private val jibriSelenium: JibriSelenium = JibriSelenium()
 ) : StatefulJibriService("Streaming") {
-    private val capturer = FfmpegCapturer()
     private val sink: Sink
-    private val jibriSelenium = JibriSelenium()
 
     init {
         sink = StreamSink(

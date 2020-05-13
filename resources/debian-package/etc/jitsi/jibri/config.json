@@ -59,5 +59,15 @@
             //  of time is allowed
             "usage_timeout": "0"
         }
-    ]
+    ],
+    "ffmpeg_executor_params": {
+        "resolution": "1280x720",
+        "framerate": 30,
+        "video_encode_preset": "veryfast",
+        "queue_size": 4096,
+        "streaming_max_bitrate": 2976,
+        //"streaming_buf_size": streaming_max_bitrate * 2
+        "h264ConstantRateFactor": 25
+        //"gop_size": framerate * 2
+    }
 }
