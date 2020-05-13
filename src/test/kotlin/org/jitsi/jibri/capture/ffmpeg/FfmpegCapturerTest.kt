@@ -32,6 +32,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.ShouldSpec
 import org.jitsi.jibri.capture.UnsupportedOsException
+import org.jitsi.jibri.config.FfmpegExecutorParams
 import org.jitsi.jibri.sink.Sink
 import org.jitsi.jibri.status.ComponentState
 import org.jitsi.jibri.status.ErrorScope
@@ -67,7 +68,7 @@ internal class FfmpegCapturerTest : ShouldSpec() {
     }
 
     private fun createCapturer(): FfmpegCapturer {
-        val capturer = FfmpegCapturer(osDetector, ffmpeg)
+        val capturer = FfmpegCapturer(osDetector, FfmpegExecutorParams(), ffmpeg)
         capturer.addStatusHandler { status ->
             capturerStateUpdates.add(status)
         }
@@ -183,7 +184,7 @@ internal class FfmpegCapturerTest : ShouldSpec() {
         "on an unsupported platform" {
             whenever(osDetector.getOsType()).thenReturn(OsType.UNSUPPORTED)
             shouldThrow<UnsupportedOsException> {
-                FfmpegCapturer(osDetector, ffmpeg)
+                FfmpegCapturer(osDetector, FfmpegExecutorParams(), ffmpeg)
             }
         }
     }

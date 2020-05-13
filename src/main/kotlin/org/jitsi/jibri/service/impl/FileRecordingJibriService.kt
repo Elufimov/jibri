@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.jitsi.xmpp.extensions.jibri.JibriIq
 import org.jitsi.jibri.capture.ffmpeg.FfmpegCapturer
+import org.jitsi.jibri.config.JibriConfig
 import org.jitsi.jibri.config.XmppCredentials
 import org.jitsi.jibri.error.JibriError
 import org.jitsi.jibri.selenium.CallParams
@@ -104,8 +105,9 @@ data class RecordingMetadata(
  */
 class FileRecordingJibriService(
     private val fileRecordingParams: FileRecordingParams,
+    private val jibriConfig: JibriConfig,
     private val jibriSelenium: JibriSelenium = JibriSelenium(),
-    private val capturer: FfmpegCapturer = FfmpegCapturer(),
+    private val capturer: FfmpegCapturer = FfmpegCapturer(ffmpegExecutorParams = jibriConfig.ffmpegExecutorParams),
     private val processFactory: ProcessFactory = ProcessFactory()
 ) : StatefulJibriService("File recording") {
     /**
