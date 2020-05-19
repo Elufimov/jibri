@@ -67,7 +67,7 @@
         "queue_size": 4096,
         "streaming_max_bitrate": 2976,
         //"streaming_buf_size": streaming_max_bitrate * 2
-        "h264ConstantRateFactor": 25
+        "h264_constant_rate_factor": 25
         //"gop_size": framerate * 2
     }
 }
